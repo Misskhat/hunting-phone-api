@@ -9,23 +9,23 @@ const displayPhones = (phones, isShowAll) => {
     const phoneContainer = document.getElementById("phone-container");
     const showAllContainer = document.getElementById('show-all-container')
     // show all button hidded and show accordig search result
-    if(phones.length > 12 && !isShowAll){
+    if (phones.length > 12 && !isShowAll) {
         showAllContainer.classList.remove('hidden')
     }
-    else{
+    else {
         showAllContainer.classList.add('hidden')
     }
     console.log('is show all', isShowAll)
-    
+
     // show only 12 result, if found more then show all 
-    if(!isShowAll){
-        phones = phones.slice(0,12)
+    if (!isShowAll) {
+        phones = phones.slice(0, 12)
     }
-    else{
+    else {
 
     }
 
-    phoneContainer.textContent="";
+    phoneContainer.textContent = "";
     phones.forEach(phone => {
         // console.log(phone)
         const phoneSection = document.createElement('div');
@@ -50,7 +50,7 @@ const displayPhones = (phones, isShowAll) => {
 }
 
 // handle show detailes 
-const handleShowDetails = async (id) =>{
+const handleShowDetails = async (id) => {
     // console.log(id)
     //load single phone data
     const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
@@ -60,40 +60,40 @@ const handleShowDetails = async (id) =>{
     showPhoneDetails(phoneData)
 }
 
-const showPhoneDetails = (phone) =>{
+const showPhoneDetails = (phone) => {
     // show the modal
     console.log(phone)
     const phoneName = document.getElementById('show-detaile-phone-name');
     phoneName.innerText = phone.name;
     const showDetaileContainer = document.getElementById('show-detaile-container')
-    showDetaileContainer.innerHTML =`
+    showDetaileContainer.innerHTML = `
     <img src="${phone.image}" alt="">
     <p><span class="font-bold">Storage: </span>${phone?.mainFeatures?.storage} </p>
     <p><span class="font-bold">Display Size: </span>${phone?.mainFeatures?.displaySize} </p>
     <p><span class="font-bold">Chip Set: </span>${phone?.mainFeatures?.chipSet} </p>
     <p><span class="font-bold">Memory: </span>${phone?.mainFeatures?.memory} </p>
     `
-    show_details_modal.showModal() 
+    show_details_modal.showModal()
 }
 
 // handle search button
-const searchButton = (isShowAll) =>{
+const searchButton = (isShowAll) => {
     const searField = document.getElementById('search-field');
     const searFieldText = searField.value;
     toggleSpenner(true)
     loadPhone(searFieldText, isShowAll)
 }
 
-const toggleSpenner = (isSearch) =>{
+const toggleSpenner = (isSearch) => {
     const loadingSpenner = document.getElementById('loading-spenning');
-    if(isSearch){
+    if (isSearch) {
         loadingSpenner.classList.remove('hidden')
     }
-    else{
+    else {
         loadingSpenner.classList.add('hidden')
     }
 }
 
-const showAllFunction = () =>{
+const showAllFunction = () => {
     searchButton(true)
 }
